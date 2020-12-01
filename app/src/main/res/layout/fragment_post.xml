@@ -6,17 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".ui.post.PostFragment">
 
-    <TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/new_post_image_upload"
+        android:layout_width="275dp"
+        android:layout_height="283dp"
+        android:layout_marginTop="@dimen/_margin24"
+        android:src="@drawable/ic_baseline_add_photo_alternate_24"
+        app:layout_constraintBottom_toTopOf="@id/new_post_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/new_post_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_margin24"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginEnd="@dimen/_margin24"
+        android:hint="Title"
+        app:layout_constraintBottom_toBottomOf="@id/new_post_description"
+        app:layout_constraintTop_toBottomOf="@id/new_post_image_upload">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/new_post_description"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="@dimen/_margin8"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginEnd="@dimen/_margin24"
+        android:hint="Description"
+        app:layout_constraintTop_toBottomOf="@+id/new_post_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/new_post_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_margin8"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginEnd="@dimen/_margin24"
+        android:hint="Price"
+        app:layout_constraintTop_toBottomOf="@+id/new_post_description" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
