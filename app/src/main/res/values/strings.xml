@@ -17,4 +17,9 @@
     <string name="preferred_communication">Preferred Communication</string>
     <string name="my_posts">My Posts</string>
     <string name="title_search">Search</string>
+    <string name="housing">Housing</string>
+    <string name="type">Type</string>
+    <string name="selling">Selling</string>
+    <string name="in_search_of">In Search Of</string>
+    <string name="miscellaneous">Miscellaneous</string>
 </resources>
