@@ -27,12 +27,12 @@ class ProfileFragment : Fragment() {
         profileViewModel.text.observe(viewLifecycleOwner, Observer {
         })
 
-        val COUNTRIES = arrayOf("Email","Phone")
+        val OPTIONS = arrayOf("Email","Phone")
 
         val adapter = ArrayAdapter(
             requireContext(),
             R.layout.dropdown_menu_popup_item,
-            COUNTRIES
+            OPTIONS
         )
 
         val editTextFilledExposedDropdown: AutoCompleteTextView =
