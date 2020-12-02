@@ -1,4 +1,4 @@
-package edu.ucsb.cs.cs184.eran.gauchoback.ui.notifications
+package edu.ucsb.cs.cs184.eran.gauchoback.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
