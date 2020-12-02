@@ -6,17 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".ui.post.PostFragment">
 
-    <TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/new_post_image_upload"
+        android:layout_width="275dp"
+        android:layout_height="283dp"
+        android:layout_marginTop="@dimen/_margin24"
+        android:src="@drawable/ic_baseline_add_photo_alternate_24"
+        app:layout_constraintBottom_toTopOf="@id/new_post_type_dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:id="@+id/new_post_type_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginEnd="@dimen/_margin24"
+        android:hint="@string/select_post_type"
+        app:layout_constraintTop_toBottomOf="@id/new_post_image_upload"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/post_dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/new_post_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_margin24"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginEnd="@dimen/_margin24"
+        android:hint="@string/title"
+        app:endIconMode="clear_text"
+        app:layout_constraintBottom_toTopOf="@id/new_post_description"
+        app:layout_constraintTop_toBottomOf="@id/new_post_type_dropdown">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/new_post_description"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/_margin8"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginEnd="@dimen/_margin24"
+        android:hint="@string/description"
+        app:endIconMode="clear_text"
+        app:layout_constraintTop_toBottomOf="@+id/new_post_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/new_post_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_margin8"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginEnd="@dimen/_margin24"
+        android:hint="@string/price"
+        app:endIconMode="clear_text"
+        app:layout_constraintTop_toBottomOf="@+id/new_post_description" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/new_post_submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_margin8"
+        android:layout_marginTop="@dimen/_margin8"
+        android:text="@string/post"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_post_price">
+
+    </Button>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
