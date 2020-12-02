@@ -8,14 +8,12 @@
 
     <ImageView
         android:id="@+id/new_post_image_upload"
-        android:layout_width="275dp"
-        android:layout_height="283dp"
-        android:layout_marginTop="@dimen/_margin24"
+        android:layout_width="@dimen/_100dp"
+        android:layout_height="@dimen/_100dp"
         android:src="@drawable/ic_baseline_add_photo_alternate_24"
-        app:layout_constraintBottom_toTopOf="@id/new_post_type_dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
@@ -25,6 +23,7 @@
         android:layout_marginStart="@dimen/_margin24"
         android:layout_marginEnd="@dimen/_margin24"
         android:hint="@string/select_post_type"
+        android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/new_post_image_upload"
         >
         <AutoCompleteTextView
@@ -32,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
+            android:textSize="@dimen/_14sp"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,7 +48,11 @@
         app:layout_constraintTop_toBottomOf="@id/new_post_type_dropdown">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:lines="1"
+            android:inputType="text"
+            android:textSize="@dimen/_14sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -64,7 +68,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:textSize="@dimen/_14sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -80,7 +85,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textSize="@dimen/_14sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
