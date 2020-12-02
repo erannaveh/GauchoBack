@@ -26,13 +26,13 @@
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/new_post_image_upload"
         >
+
         <AutoCompleteTextView
             android:id="@+id/post_dropdown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
-            android:textSize="@dimen/_14sp"
-            />
+            android:textSize="@dimen/_14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
