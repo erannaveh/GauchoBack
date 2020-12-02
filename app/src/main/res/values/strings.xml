@@ -3,4 +3,10 @@
     <string name="title_home">Home</string>
     <string name="title_post">New Post</string>
     <string name="title_profile">Profile</string>
+    <string name="sample_text">Sample Text</string>
+    <string name="select_post_type">Select Post Type</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="price">Price</string>
+    <string name="post">Post</string>
 </resources>
