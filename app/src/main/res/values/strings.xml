@@ -23,6 +23,6 @@
     <string name="in_search_of">In Search Of</string>
     <string name="miscellaneous">Miscellaneous</string>
     <string name="password">Password</string>
-    <string name="login">LOGIN</string>
-    <string name="signup">SIGN UP</string>
+    <string name="login">Log In</string>
+    <string name="signup">Sign Up</string>
 </resources>

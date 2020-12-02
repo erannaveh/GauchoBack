@@ -10,6 +10,10 @@ import com.google.firebase.auth.FirebaseAuth
 class LogInViewModel : ViewModel() {
     private lateinit var mAuth: FirebaseAuth
 
+    fun setAuth(auth: FirebaseAuth){
+        mAuth = auth
+    }
+
     fun signIn(email: String, password: String): Task<AuthResult> {
         return mAuth.signInWithEmailAndPassword(email, password)
     }
