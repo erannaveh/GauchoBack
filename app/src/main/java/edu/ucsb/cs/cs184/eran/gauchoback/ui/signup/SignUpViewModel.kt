@@ -8,6 +8,9 @@ import com.google.firebase.auth.FirebaseAuth
 class SignUpViewModel : ViewModel() {
     private lateinit var mAuth: FirebaseAuth
 
+    fun setAuth(auth: FirebaseAuth){
+        mAuth = auth
+    }
     fun createAccount(email: String, password: String): Task<AuthResult> {
         return mAuth.createUserWithEmailAndPassword(email, password)
     }
