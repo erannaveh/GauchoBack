@@ -45,7 +45,6 @@ class LandingPageFragment : Fragment() {
         if(viewModel.isLoggedIn()){
             navController.navigate(R.id.action_navigation_landing_page_to_navigation_home)
         }
-        // TODO: Use the ViewModel
     }
 
     fun onClickLogIn() {
