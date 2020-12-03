@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class SearchViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
     fun getCurrentUser(){
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
