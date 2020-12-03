@@ -34,6 +34,7 @@ class LandingPageFragment : Fragment() {
         val navBar: BottomNavigationView = requireActivity().findViewById(R.id.nav_view)
         navBar.visibility = View.GONE
 
+
         return root
     }
 
@@ -41,6 +42,9 @@ class LandingPageFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LandingPageViewModel::class.java)
         navController = this.findNavController()
+        if(viewModel.isLoggedIn()){
+            navController.navigate(R.id.action_navigation_landing_page_to_navigation_home)
+        }
         // TODO: Use the ViewModel
     }
 

@@ -35,4 +35,5 @@ class LogInViewModel : ViewModel() {
             val uid = user.uid
         }
     }
+
 }

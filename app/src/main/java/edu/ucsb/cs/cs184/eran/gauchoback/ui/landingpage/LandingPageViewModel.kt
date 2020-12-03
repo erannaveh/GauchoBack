@@ -1,7 +1,11 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.landingpage
 
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class LandingPageViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+    fun isLoggedIn():Boolean {
+        val user = FirebaseAuth.getInstance().currentUser
+        return user != null
+    }
 }

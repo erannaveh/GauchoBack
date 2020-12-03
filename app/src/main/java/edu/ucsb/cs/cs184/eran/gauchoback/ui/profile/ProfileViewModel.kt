@@ -15,28 +15,9 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 class ProfileViewModel : ViewModel() {
-    private lateinit var user: FirebaseUser
+    private var user = FirebaseAuth.getInstance().currentUser!!
     private var database = Firebase.database
 
-
-    fun setCurrentUser(){
-        user = FirebaseAuth.getInstance().currentUser!!
-        if (user != null) {
-
-            // Name, email address, and profile photo Url
-            val name = user.displayName
-            val email = user.email
-            val photoUrl: Uri? = user.photoUrl
-
-            // Check if user's email is verified
-            val emailVerified = user.isEmailVerified
-
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getIdToken() instead.
-            val uid = user.uid
-        }
-    }
 
     fun getEmail(): String? {
         return user.email
@@ -117,5 +98,9 @@ class ProfileViewModel : ViewModel() {
         ref.setValue(phone)
         ref = database.getReference("/PreferredComm/" + user.uid)
         ref.setValue(preferredComm)
+    }
+
+    fun logOut(){
+        FirebaseAuth.getInstance().signOut()
     }
 }

@@ -29,11 +29,4 @@ class MainActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onStart() {
-        super.onStart()
-        var currentUser: FirebaseUser? = mAuth.currentUser
-        // use current user to update UI
-
-    }
-
 }
