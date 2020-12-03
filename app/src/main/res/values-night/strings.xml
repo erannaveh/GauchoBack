@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GauchoBack</string>
+    <string name="title_home">Home</string>
+    <string name="title_post">New Post</string>
+    <string name="title_profile">Profile</string>
+    <string name="name">Name</string>
+    <string name="string_name">Name</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="preferred_communication">Preferred Communication</string>
+    <string name="my_posts">My Posts</string>
+    <string name="title_search">Search</string>
+</resources>

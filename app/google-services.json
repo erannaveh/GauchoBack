@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "880706292955",
+    "firebase_url": "https://gauchoback-5e580.firebaseio.com",
+    "project_id": "gauchoback-5e580",
+    "storage_bucket": "gauchoback-5e580.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880706292955:android:f7789e06353ac6693e10fe",
+        "android_client_info": {
+          "package_name": "edu.ucsb.cs.cs184.eran.gauchoback"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880706292955-o4f51g8qo24ebocvv9l9b08t8ith7bgl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG1hrsyMDm9smYjAnEhFGa5leORAv6O6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880706292955-o4f51g8qo24ebocvv9l9b08t8ith7bgl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
