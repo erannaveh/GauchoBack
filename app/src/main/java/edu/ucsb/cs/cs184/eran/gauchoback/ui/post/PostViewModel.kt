@@ -35,14 +35,16 @@ class PostViewModel : ViewModel() {
         private lateinit var title: String
         private lateinit var description: String
         private lateinit var price: String
+        private lateinit var uid: String
 
         constructor()
 
-        constructor(postType: String, title: String, description: String, price: String){
+        constructor(postType: String, title: String, description: String, price: String, uid: String){
             this.postType = postType
             this.title = title
             this.description = description
             this.price = price
+            this.uid = uid
         }
 
         fun getPostType(): String {
@@ -60,12 +62,16 @@ class PostViewModel : ViewModel() {
         fun getPrice(): String {
             return price
         }
+
+        fun getUid(): String {
+            return uid
+        }
     }
 
     fun pushPostToDB(postType: String, title: String, description: String, price: String){
 
-        var ref = database.getReference("/Posts/" + user.uid)
+        var ref = database.getReference("/Posts")
         var newPostRef = ref.push()
-        newPostRef.setValue(Post(postType, title, description, price))
+        newPostRef.setValue(Post(postType, title, description, price, user.uid))
     }
 }

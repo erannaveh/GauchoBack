@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("TAG","Test")
         profileViewModel =
                 ViewModelProvider(this).get(ProfileViewModel::class.java)
         root = inflater.inflate(R.layout.fragment_profile, container, false)
@@ -35,6 +37,7 @@ class ProfileFragment : Fragment() {
         initiateDropdown()
         root.findViewById<Button>(R.id.saveButton).setOnClickListener{pushToDB()}
         root.findViewById<Button>(R.id.logOut).setOnClickListener{logOut()}
+        profileViewModel.getMyPosts()
         return root
     }
 

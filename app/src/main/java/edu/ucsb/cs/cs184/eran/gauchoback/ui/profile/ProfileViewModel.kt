@@ -1,18 +1,17 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.profile
 
-import android.net.Uri
 import android.util.Log
 import android.widget.AutoCompleteTextView
 import androidx.lifecycle.ViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import edu.ucsb.cs.cs184.eran.gauchoback.ui.post.PostViewModel.Post
 
 class ProfileViewModel : ViewModel() {
     private var user = FirebaseAuth.getInstance().currentUser!!
@@ -102,5 +101,30 @@ class ProfileViewModel : ViewModel() {
 
     fun logOut(){
         FirebaseAuth.getInstance().signOut()
+    }
+
+    fun getMyPosts() {
+        val ref = database.getReference("/Posts").equalTo("uid", user.uid)
+        val listener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Get Post object and use the values to update the UI
+                val posts = dataSnapshot.getValue<ArrayList<Post>>()
+                Log.d("Tag", posts.toString())
+                // ...
+                if(posts != null) {
+                    Log.d("Tag", posts.toString())
+                    //view.setText(phone.toString())
+                }
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("TAG", "loadPost:onCancelled", databaseError.toException())
+                // ...
+            }
+        }
+        ref.addValueEventListener(listener)
+
     }
 }
