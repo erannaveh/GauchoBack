@@ -47,13 +47,6 @@ class LogInFragment : Fragment() {
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        var currentUser: FirebaseUser? = mAuth.currentUser
-        // use current user to update UI
-
-
-    }
 
     private fun signIn(){
         // TODO: add validation
