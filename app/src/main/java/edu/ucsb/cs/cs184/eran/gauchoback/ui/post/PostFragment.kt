@@ -33,10 +33,6 @@ class PostFragment : Fragment() {
         postViewModel =
                 ViewModelProvider(this).get(PostViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_post, container, false)
-        // val textView: TextView = root.findViewById(R.id.text_dashboard)
-        // postViewModel.text.observe(viewLifecycleOwner, Observer {
-        //    textView.text = it
-        // })
 
 
         return root
