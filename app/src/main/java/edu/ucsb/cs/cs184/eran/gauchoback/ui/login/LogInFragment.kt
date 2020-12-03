@@ -56,6 +56,7 @@ class LogInFragment : Fragment() {
     }
 
     private fun signIn(){
+        // TODO: add validation
         val email = root.findViewById<TextInputEditText>(R.id.logInEmailText).text.toString()
         val password = root.findViewById<TextInputEditText>(R.id.logInPasswordText).text.toString()
         viewModel.signIn(email, password).addOnCompleteListener(requireActivity(),
