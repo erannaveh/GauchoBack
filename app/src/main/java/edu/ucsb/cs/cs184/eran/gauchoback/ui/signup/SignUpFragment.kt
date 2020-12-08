@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity
 import edu.ucsb.cs.cs184.eran.gauchoback.R
 import java.util.regex.Pattern
 
@@ -109,6 +110,7 @@ class SignUpFragment : Fragment() {
                             Log.d("TAG", "createUserWithEmail:success")
                             val user: FirebaseUser? = mAuth.currentUser
                             viewModel.pushNameToDB(user!!.uid, name)
+                            MainActivity.updateUser(activity as MainActivity, user.uid)
                             navController.navigate(R.id.action_navigation_signup_to_navigation_home)
                             //updateUI(user)
                         } else {

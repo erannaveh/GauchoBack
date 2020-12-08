@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity
 import edu.ucsb.cs.cs184.eran.gauchoback.R
 
 class LogInFragment : Fragment() {
@@ -52,6 +53,7 @@ class LogInFragment : Fragment() {
         // TODO: add validation
         val email = root.findViewById<TextInputEditText>(R.id.logInEmailText).text.toString()
         val password = root.findViewById<TextInputEditText>(R.id.logInPasswordText).text.toString()
+        Log.d("email", email)
         viewModel.signIn(email, password).addOnCompleteListener(requireActivity(),
             OnCompleteListener<AuthResult?> { task ->
                 if (task.isSuccessful) {
@@ -59,6 +61,7 @@ class LogInFragment : Fragment() {
                     navController.navigate(R.id.action_navigation_login_to_navigation_home)
                     Log.d("TAG", "signInWithEmail:success")
                     val user = mAuth.currentUser
+                    MainActivity.updateUser(activity as MainActivity, user!!.uid)
                     //updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
