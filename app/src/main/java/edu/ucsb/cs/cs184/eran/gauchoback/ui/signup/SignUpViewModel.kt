@@ -6,6 +6,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity
 
 class SignUpViewModel : ViewModel() {
     private lateinit var mAuth: FirebaseAuth
@@ -18,8 +19,15 @@ class SignUpViewModel : ViewModel() {
         return mAuth.createUserWithEmailAndPassword(email, password)
     }
 
-    fun pushNameToDB(uid: String, name: String){
-        val ref = database.getReference("/Names/$uid")
+
+    fun pushToDB(uid:String, name: String, email: String){
+        MainActivity.USER.setName(name)
+        MainActivity.USER.setPreferredComm("Email")
+        var ref = database.getReference("/Names/$uid")
         ref.setValue(name)
+        ref = database.getReference("/Emails/$uid")
+        ref.setValue(email)
+        ref = database.getReference("/PreferredComm/$uid")
+        ref.setValue("Email")
     }
 }

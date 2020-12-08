@@ -92,6 +92,12 @@ class MainActivity : AppCompatActivity() {
             USER.setUid(uid)
             initializeUser(mainActivity)
         }
+        fun updateUserSignUp(uid: String, email: String, name: String){
+            USER.setUid(uid)
+            USER.setEmail(email)
+            USER.setName(name)
+            USER.setPreferredComm("Email")
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

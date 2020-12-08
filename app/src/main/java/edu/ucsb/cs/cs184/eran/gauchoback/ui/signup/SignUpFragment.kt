@@ -62,8 +62,8 @@ class SignUpFragment : Fragment() {
 
                     Log.d("TAG", "createUserWithEmail:success")
                     val user: FirebaseUser? = mAuth.currentUser
-                    viewModel.pushNameToDB(user!!.uid, name)
-                    MainActivity.updateUser(activity as MainActivity, user.uid)
+                    viewModel.pushToDB(user!!.uid, name, email)
+                    MainActivity.updateUserSignUp(user.uid, email, name)
                     navController.navigate(R.id.action_navigation_signup_to_navigation_home)
                     //updateUI(user)
                 } else {
@@ -75,5 +75,7 @@ class SignUpFragment : Fragment() {
                 // ...
             })
     }
+
+
 
 }
