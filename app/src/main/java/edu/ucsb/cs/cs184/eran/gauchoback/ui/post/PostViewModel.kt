@@ -1,15 +1,15 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.post
 
 import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.util.*
+import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity.Companion.USER
 
 class PostViewModel : ViewModel() {
-    private var user = FirebaseAuth.getInstance().currentUser!!
+    private var user = USER
     private var database = Firebase.database
 
     fun getCurrentUser(){
@@ -35,15 +35,19 @@ class PostViewModel : ViewModel() {
         private lateinit var title: String
         private lateinit var description: String
         private lateinit var price: String
+        private lateinit var email: String
+        private lateinit var phone: String
         private lateinit var uid: String
 
         constructor()
 
-        constructor(postType: String, title: String, description: String, price: String, uid: String){
+        constructor(postType: String, title: String, description: String, price: String, email: String, phone: String, uid: String){
             this.postType = postType
             this.title = title
             this.description = description
             this.price = price
+            this.email = email
+            this.phone = phone
             this.uid = uid
         }
 
@@ -63,15 +67,24 @@ class PostViewModel : ViewModel() {
             return price
         }
 
+        fun getEmail(): String {
+            return email
+        }
+
+        fun getPhone(): String {
+            return phone
+        }
+
         fun getUid(): String {
             return uid
         }
+
     }
 
     fun pushPostToDB(postType: String, title: String, description: String, price: String){
 
         var ref = database.getReference("/Posts")
         var newPostRef = ref.push()
-        newPostRef.setValue(Post(postType, title, description, price, user.uid))
+        newPostRef.setValue(Post(postType, title, description, price, user.getEmail(), user.getPhone(), user.getUid()))
     }
 }
