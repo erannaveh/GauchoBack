@@ -53,7 +53,7 @@ class ProfileFragment : Fragment() {
         val name = root.findViewById<TextInputEditText>(R.id.nameText)
         val nameText = name.text.toString()
 
-        var regex = "[a-zA-Z]+"
+        var regex = "[a-zA-Z\\s]+"
         var m: Boolean = Pattern.matches(regex, nameText)
 
 
