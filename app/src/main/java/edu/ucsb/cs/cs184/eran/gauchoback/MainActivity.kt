@@ -19,6 +19,7 @@ import com.google.firebase.ktx.Firebase
 class MainActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private var database = Firebase.database
+    private var loggedInUser = FirebaseAuth.getInstance().currentUser?.uid
 
 
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             email = ""
             phone = ""
             preferredComm = ""
-            uid = FirebaseAuth.getInstance().currentUser!!.uid
+            uid = "" //FirebaseAuth.getInstance().currentUser!!.uid
         }
 
         fun getName(): String {
@@ -81,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         var USER = User()
-        fun initializeUser(mainActivity: MainActivity){
+        private fun initializeUser(mainActivity: MainActivity){
             mainActivity.setName()
             mainActivity.setEmail()
             mainActivity.setPhone()
@@ -107,7 +108,10 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         mAuth = FirebaseAuth.getInstance()
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        Companion.initializeUser(this)
+        if(loggedInUser != null){
+            updateUser(this, loggedInUser!!)
+        }
+
     }
 
     private fun setName() {
