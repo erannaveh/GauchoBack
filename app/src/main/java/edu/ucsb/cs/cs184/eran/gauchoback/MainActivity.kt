@@ -69,6 +69,10 @@ class MainActivity : AppCompatActivity() {
             this.preferredComm  = preferredComm
         }
 
+        fun setUid(uid: String){
+            this.uid = uid
+        }
+
         fun getUid(): String {
             return uid
         }
@@ -77,6 +81,16 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         var USER = User()
+        fun initializeUser(mainActivity: MainActivity){
+            mainActivity.setName()
+            mainActivity.setEmail()
+            mainActivity.setPhone()
+            mainActivity.setPreferredComm()
+        }
+        fun updateUser(mainActivity: MainActivity, uid: String){
+            USER.setUid(uid)
+            initializeUser(mainActivity)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,14 +107,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         mAuth = FirebaseAuth.getInstance()
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        initializeUser()
-    }
-
-    private fun initializeUser(){
-        setName()
-        setEmail()
-        setPhone()
-        setPreferredComm()
+        Companion.initializeUser(this)
     }
 
     private fun setName() {
@@ -148,6 +155,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setPhone() {
+        Log.d("phone","setphone called")
         val ref = database.getReference("/Phones/" + USER.getUid())
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
