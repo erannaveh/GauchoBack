@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.profile
 
 import android.net.Uri
+import android.telephony.PhoneNumberUtils
 import android.util.Log
 import android.widget.AutoCompleteTextView
 import androidx.lifecycle.ViewModel
@@ -53,7 +54,9 @@ class ProfileViewModel : ViewModel() {
                 val phone = dataSnapshot.getValue<String>()
                 // ...
                 if(phone != null) {
-                    view.setText(phone.toString())
+                    val p = phone.toString()
+                    val formattedNumber = PhoneNumberUtils.formatNumber(p)
+                    view.setText(formattedNumber.toString())
                 }
 
             }
