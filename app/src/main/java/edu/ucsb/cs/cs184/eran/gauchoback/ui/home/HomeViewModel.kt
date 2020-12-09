@@ -57,13 +57,16 @@ class HomeViewModel : ViewModel() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Get Post object and use the values to update the UI
                 val preferredComm = dataSnapshot.getValue<String>()
+
                 // ...
                 if(preferredComm != null) {
                     if(preferredComm == "Email"){
+                        Log.d(HomeFragment.TAG, "preferred is EMAIL")
                         view.setOnClickListener{onClickEmail(email, title)}
                     }
                     else if(preferredComm == "Phone"){
                         view.setOnClickListener{onClickPhone(phone, title)}
+                        Log.d(HomeFragment.TAG, "preferred is phone")
                     }
                 }
 
