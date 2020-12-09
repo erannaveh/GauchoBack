@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import edu.ucsb.cs.cs184.eran.gauchoback.R
+import edu.ucsb.cs.cs184.eran.gauchoback.ui.post.PostFragment
 
 
 class HomeFragment : Fragment() {
@@ -27,6 +28,10 @@ class HomeFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var root: View
     val Fragment.packageManager get() = activity?.packageManager
+
+    companion object {
+        val TAG = HomeFragment::class.simpleName
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,10 +75,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun onClickEmail(email: String, title: String){
-        Log.d("Clicked Email", "Clicked")
         val intent = Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:$email") // only email apps should handle this
+            data = Uri.parse("mailto:") // only email apps should handle this
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
             putExtra(Intent.EXTRA_SUBJECT, "Responding to $title on GauchoBack")
+            putExtra(Intent.EXTRA_TEXT, "Hi, I'd like to reach out about $title on GauchoBack.")
         }
         if(packageManager?.resolveActivity(intent, 0) != null) {
             startActivity(intent)
@@ -81,10 +87,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun onClickPhone(phone: String, title: String){
-        Log.d("Clicked Phone", "Clicked")
-        val intent = Intent(Intent.ACTION_SEND).apply {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("smsto:$phone")  // This ensures only SMS apps respond
-            //putExtra("sms_body", "Hi I'd like to reach out about $title on GauchoBack")
+            putExtra("sms_body", "Hi I'd like to reach out about $title on GauchoBack.")
         }
         if(packageManager?.resolveActivity(intent, 0) != null) {
             startActivity(intent)
