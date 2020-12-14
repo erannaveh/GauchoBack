@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.material.textfield.TextInputEditText
@@ -15,9 +17,10 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
-import edu.ucsb.cs.cs184.eran.gauchoback.ui.post.PostViewModel.Post
-import java.util.HashMap
 import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity.Companion.USER
+import edu.ucsb.cs.cs184.eran.gauchoback.ui.home.HomeFragment
+import edu.ucsb.cs.cs184.eran.gauchoback.ui.post.PostViewModel.Post
+import java.util.*
 
 class ProfileViewModel : ViewModel() {
     private var user = USER
@@ -85,17 +88,17 @@ class ProfileViewModel : ViewModel() {
         return posts
     }
 
-    fun deletePost(postID: String, view: View, layout: LinearLayout){
+    fun deletePost(postID: String, view: View, layout: LinearLayout, fragment: Fragment){
         val ref = database.getReference("/Posts/$postID")
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Get Post object and use the values to update the UI
                 dataSnapshot.ref.removeValue()
-                if(view.parent != null){
-                    val parentView = view.parent as ViewGroup
+                /*if(view.parent != null){
+                    val parentView = view.parent as ViewGroup // Post itself
                     layout.removeView(parentView)
                     parentView.removeAllViews()
-                }
+                }*/
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -106,4 +109,5 @@ class ProfileViewModel : ViewModel() {
         }
         ref.addValueEventListener(listener)
     }
+
 }

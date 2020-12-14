@@ -1,5 +1,6 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.profile
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,12 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import edu.ucsb.cs.cs184.eran.gauchoback.R
+import edu.ucsb.cs.cs184.eran.gauchoback.ui.home.HomeFragment
 
 
 class ProfileFragment : Fragment() {
@@ -20,12 +24,18 @@ class ProfileFragment : Fragment() {
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var root: View
     private lateinit var navController: NavController
+    private lateinit var confirmDeleteDialog: AlertDialog.Builder
+
+    companion object {
+        val TAG = ProfileFragment::class.simpleName
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d(TAG, "on create view")
         profileViewModel =
                 ViewModelProvider(this).get(ProfileViewModel::class.java)
         profileViewModel.setMyPosts()
@@ -46,15 +56,40 @@ class ProfileFragment : Fragment() {
                 val postButton = postLayout.findViewById<ImageButton>(R.id.deletePost)
                 postTitle.text = posts[i].getTitle()
                 postButton.setOnClickListener {
-                    profileViewModel.deletePost(keys[i], it, layout)
+                    Log.d(TAG, "dialog is visible")
+                    confirmDeleteDialog = AlertDialog.Builder(this.context)
+                    confirmDeleteDialog.setTitle("Confirm")
+                            .setMessage("Are you sure you want to delete the post?")
+                            .setPositiveButton("YES") { confirmDeleteDialog, whichButton ->
+                                Log.d(TAG, "pressing yes")
+                                profileViewModel.deletePost(keys[i], it, layout, this)
+                            }
+                            .setNegativeButton("NO") { confirmDeleteDialog, whichButton ->
+                                Log.d(TAG, "pressing no")
+                                confirmDeleteDialog.dismiss()
+                            }
+                    confirmDeleteDialog.show()
+
+                    //refreshFragment()
 
 
                 }
                 layout.addView(postLayout)
             }
         })
+
         return root
     }
+    /*
+    private fun refreshFragment() {
+        Log.d(ProfileFragment.TAG, "refreshingFragment")
+        val newFragment = ProfileFragment()
+        requireActivity().supportFragmentManager
+                .beginTransaction()
+                .detach(this)
+                .attach(this)
+                .commit()
+    }*/
 
     private fun populateData(){
         val email: String? = profileViewModel.getEmail()
@@ -95,6 +130,5 @@ class ProfileFragment : Fragment() {
     private fun logOut(){
         profileViewModel.logOut()
         navController.navigate(R.id.action_navigation_profile_to_navigation_landing_page)
-
     }
 }
