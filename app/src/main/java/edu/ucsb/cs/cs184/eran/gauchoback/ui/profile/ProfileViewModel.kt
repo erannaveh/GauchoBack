@@ -1,7 +1,10 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.profile
 
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
+import android.widget.LinearLayout
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.material.textfield.TextInputEditText
@@ -82,12 +85,17 @@ class ProfileViewModel : ViewModel() {
         return posts
     }
 
-    fun deletePost(postID: String){
+    fun deletePost(postID: String, view: View, layout: LinearLayout){
         val ref = database.getReference("/Posts/$postID")
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Get Post object and use the values to update the UI
                 dataSnapshot.ref.removeValue()
+                if(view.parent != null){
+                    val parentView = view.parent as ViewGroup
+                    layout.removeView(parentView)
+                    parentView.removeAllViews()
+                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
