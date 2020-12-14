@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -47,7 +46,8 @@ class ProfileFragment : Fragment() {
                 val postButton = postLayout.findViewById<ImageButton>(R.id.deletePost)
                 postTitle.text = posts[i].getTitle()
                 postButton.setOnClickListener {
-                    profileViewModel.deletePost(keys[i])
+                    profileViewModel.deletePost(keys[i], it, layout)
+
 
                 }
                 layout.addView(postLayout)

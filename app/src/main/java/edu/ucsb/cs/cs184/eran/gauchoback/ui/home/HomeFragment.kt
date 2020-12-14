@@ -62,11 +62,6 @@ class HomeFragment : Fragment() {
                 postTitle.text = post.getTitle()
                 postDescription.text = post.getDescription()
                 postType.text = post.getPostType()
-                Log.d("home post", post.getDescription())
-                val paddingDp = 25
-                val density = requireContext().resources.displayMetrics.density
-                val paddingPixel: Int = ((paddingDp * density).toInt())
-                postLayout.setPadding(0, paddingPixel, 0, paddingPixel)
                 postsLinearLayout.addView(postLayout)
             }
         })
