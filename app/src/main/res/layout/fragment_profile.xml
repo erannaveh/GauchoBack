@@ -70,7 +70,7 @@
             android:id="@+id/phoneText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone"
+            android:inputType="none|phone"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 

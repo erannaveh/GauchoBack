@@ -23,9 +23,11 @@ class HomeViewModel : ViewModel() {
         if(args != null){
             Log.d("TAG","Args not null")
             postType = args.getString("postType").toString()
-            keywords = args.getString("keywords").toString().split(" ")
             if(postType != ""){
                 ref = database.getReference("/Posts").orderByChild("postType").equalTo(postType)
+            }
+            if(!args.getString("keywords").isNullOrBlank()){
+                keywords = args.getString("keywords").toString().split(" ")
             }
 
         }
@@ -37,7 +39,8 @@ class HomeViewModel : ViewModel() {
                 val postsData: HashMap<String, Post>? = dataSnapshot.getValue<HashMap<String, Post>>()
                 // ...
                 if(postsData != null) {
-                    if(keywords.isNotEmpty()){
+                    if(!keywords.isNullOrEmpty()){
+                        Log.d("keywords is not empty",keywords.toString())
                         var filteredMap = HashMap<String, Post>()
                         for(key in postsData.keys){
                             if(postsData[key]!!.getDescription().split(" ").intersect(keywords).isNotEmpty() || postsData[key]!!.getTitle().split(" ").intersect(keywords).isNotEmpty() ){

@@ -1,5 +1,6 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.signup
 
+import android.app.AlertDialog
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -92,8 +93,6 @@ class SignUpFragment : Fragment() {
         }else if(!m){
             name.error = "Enter valid name (no special characters or numbers)"
             return false
-        }else{
-            name.error = "Enter valid name (no special characters or numbers)"
         }
 
         return true
@@ -108,6 +107,16 @@ class SignUpFragment : Fragment() {
             return false
         }
 
+        if(!emailText.contentEquals("@") || !emailText.contains(".")){
+            email.error = "Invalid email. Email must be a @ucsb.edu or @sbcc.edu address."
+        }
+
+        val secondHalf = emailText.split("@")[1]
+        if(secondHalf != "ucsb.edu" && secondHalf != "sbcc.edu"){
+            email.error = "Email must be a @ucsb.edu or @sbcc.edu address."
+            return false
+        }
+
         return true
     }
 
@@ -119,6 +128,45 @@ class SignUpFragment : Fragment() {
             password.error = "Password can't be empty."
             return false
         }
+        var specialChar = false
+        var capitalLetter = false
+        var lowercaseLetter = false
+        var number = false
+        for(element in passwordText){
+            if(element.isUpperCase()) capitalLetter = true
+            if(element.isLowerCase()) lowercaseLetter = true
+            if (element.isDigit()) number = true
+            if (!element.isLetterOrDigit()) specialChar = true
+        }
+        if(passwordText.length < 12 || !capitalLetter || !lowercaseLetter || !number || !specialChar){
+            password.error = "Password must be 12-18 characters long, contain one special character, one capital letter, one lowercase letter, and one number."
+            return false
+        }
+
+        return true
+    }
+
+    private fun isValidPhone(): Boolean{
+        val phone = root.findViewById<TextInputEditText>(R.id.signUpPhoneText)
+        val phoneText = phone.text.toString()
+
+        if(phoneText.isEmpty()){
+            phone.error = "Phone number can't be empty."
+            return false
+        }
+
+        if(phoneText.length != 10 ){
+            phone.error = "Enter phone number in ########## format."
+            return false
+        }
+
+        for(element in phoneText){
+            if(!element.isDigit()){
+                phone.error = "Enter phone number in ########## format."
+                return false
+            }
+        }
+
 
         return true
     }
@@ -135,6 +183,9 @@ class SignUpFragment : Fragment() {
         if(!isValidPassword()){
             error = true
         }
+        if(!isValidPhone()){
+            error = true
+        }
         return !error
     }
 
@@ -143,6 +194,7 @@ class SignUpFragment : Fragment() {
         if(validate()) {
             val name = root.findViewById<TextInputEditText>(R.id.signUpNameText).text.toString()
             val email = root.findViewById<TextInputEditText>(R.id.signUpEmailText).text.toString()
+            val phone = root.findViewById<TextInputEditText>(R.id.signUpPhoneText).text.toString()
             val password =
                 root.findViewById<TextInputEditText>(R.id.signUpPasswordText).text.toString()
             viewModel.createAccount(email, password).addOnCompleteListener(requireActivity(),
@@ -152,14 +204,19 @@ class SignUpFragment : Fragment() {
 
                         Log.d("TAG", "createUserWithEmail:success")
                         val user: FirebaseUser? = mAuth.currentUser
-                        viewModel.pushToDB(user!!.uid, name, email)
-                        MainActivity.updateUserSignUp(user.uid, email, name)
+                        viewModel.pushToDB(user!!.uid, name, email, phone)
+                        MainActivity.updateUserSignUp(user.uid, email, name, phone)
                         navController.navigate(R.id.action_navigation_signup_to_navigation_home)
                         //updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("TAG", "createUserWithEmail:failure", task.exception)
                         //updateUI(null)
+                        val builder : AlertDialog.Builder = AlertDialog.Builder(requireActivity())
+                        builder.setTitle("SIGN UP ERROR:")
+                        builder.setMessage("An account exists with these credentials. Try again with a different email.")
+                        builder.setPositiveButton("OK",null)
+                        builder.show()
                     }
 
                     // ...
