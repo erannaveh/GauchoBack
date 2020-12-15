@@ -3,6 +3,7 @@ package edu.ucsb.cs.cs184.eran.gauchoback.ui.profile
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import edu.ucsb.cs.cs184.eran.gauchoback.R
+import java.util.regex.Pattern
 import edu.ucsb.cs.cs184.eran.gauchoback.ui.home.HomeFragment
 
 
@@ -106,14 +108,82 @@ class ProfileFragment : Fragment() {
         editTextFilledExposedDropdown.setAdapter(adapter)
     }
 
+    private fun isValidName(): Boolean{
+
+        val name = root.findViewById<TextInputEditText>(R.id.nameText)
+        val nameText = name.text.toString()
+        var regex = "[a-zA-Z\\s]+"
+        var m: Boolean = Pattern.matches(regex, nameText)
+
+
+        if(nameText.isEmpty()){
+            name.error = "Name can't be empty."
+            return false
+        }else if(!m){
+            name.error = "Enter valid name (no special characters or numbers)"
+            return false
+        }else{
+            name.error = null
+        }
+
+        return true
+    }
+
+    private fun isValidPhone(): Boolean{
+        val phone = root.findViewById<TextInputEditText>(R.id.phoneText)
+        val phoneText = phone.text.toString()
+
+        if(phoneText.isEmpty()){
+            phone.error = "Phone Number can't be empty."
+            return false
+        }else if(!Patterns.PHONE.matcher(phoneText).matches()){
+            phone.error = "Please enter valid phone number"
+            return false
+        }else{
+            phone.error = null
+        }
+        return true
+    }
+
+    private fun isValidComm(): Boolean{
+
+        val prefComm = root.findViewById<AutoCompleteTextView>(R.id.preferredCommDropdown)
+        val prefCommText = prefComm.text.toString()
+
+        if(prefCommText.isEmpty()) {
+            prefComm.error = "Must selected preferred communication."
+            return false
+        }else{
+            prefComm.error = null
+        }
+        return true
+    }
+
+    private fun validate(): Boolean{
+        var error = false
+
+        if(!isValidName()){
+            error = true
+        }
+        if(!isValidPhone()) {
+            error = true
+        }
+        if(!isValidComm()){
+            error = true
+        }
+        return !error
+    }
 
     private fun pushToDB(){
         // TODO: add validation
-        val name = root.findViewById<TextInputEditText>(R.id.nameText).text.toString()
-        val email = root.findViewById<TextInputEditText>(R.id.emailText).text.toString()
-        val phone = root.findViewById<TextInputEditText>(R.id.phoneText).text.toString()
-        val preferredComm = root.findViewById<AutoCompleteTextView>(R.id.preferredCommDropdown).text.toString()
-        profileViewModel.pushToDB(name, email, phone, preferredComm)
+        if(validate()) {
+            val name = root.findViewById<TextInputEditText>(R.id.nameText).text.toString()
+            val email = root.findViewById<TextInputEditText>(R.id.emailText).text.toString()
+            val phone = root.findViewById<TextInputEditText>(R.id.phoneText).text.toString()
+            val preferredComm =
+                root.findViewById<AutoCompleteTextView>(R.id.preferredCommDropdown).text.toString()
+            profileViewModel.pushToDB(name, email, phone, preferredComm)
+        }
     }
 
     private fun logOut(){
