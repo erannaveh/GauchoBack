@@ -40,16 +40,29 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/searchView"
+        android:id="@+id/searchName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/keywords"
+        android:hint="@string/name"
         android:layout_marginTop="60dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchPostType"
+        app:layout_constraintVertical_bias="0.050000012"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/keywords"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchName"
         app:layout_constraintVertical_bias="0.050000012"/>
 
     <Button

@@ -3,6 +3,7 @@ package edu.ucsb.cs.cs184.eran.gauchoback.ui.home
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity.Companion.USER
 import edu.ucsb.cs.cs184.eran.gauchoback.R
 
 
@@ -26,6 +28,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var navController: NavController
     private lateinit var root: View
+    private var user = USER
     private val Fragment.packageManager get() = activity?.packageManager
 
     companion object {
@@ -49,7 +52,7 @@ class HomeFragment : Fragment() {
         searchBtn.setOnClickListener{navController.navigate(R.id.action_navigation_home_to_searchFragment)}
         homeViewModel.getPosts().observe(viewLifecycleOwner, Observer { it ->
             val postsLinearLayout = root.findViewById<LinearLayout>(R.id.postsLinearLayout)
-            val list = it.toList()
+            val list = it
             if(list.isEmpty()){
                 var textView: TextView = TextView(requireContext())
                 textView.text = "We could not find a post that matches your search"
@@ -57,7 +60,9 @@ class HomeFragment : Fragment() {
                 textView.textSize = 20f
                 postsLinearLayout.addView(textView)
             }else{
-                for(post in list){
+                list.forEach {
+                    var post = it
+                    Log.d(TAG, list.size.toString())
                     val postLayout = inflater.inflate(R.layout.post_layout, postsLinearLayout, false)
                     val postTitle = postLayout.findViewById<TextView>(R.id.postTitle)
                     val postDescription = postLayout.findViewById<TextView>(R.id.postDescription)
@@ -65,14 +70,18 @@ class HomeFragment : Fragment() {
                     val postType = postLayout.findViewById<TextView>(R.id.postType)
                     val image = postLayout.findViewById<ImageView>(R.id.postImage)
                     homeViewModel.getPreferredComm(post.getUid(), postButton, ::onClickEmail, ::onClickPhone, post.getEmail(), post.getPhone(), post.getTitle())
+                    if (post.getUid() == user.getUid()) {
+                        var layout = postLayout as ViewGroup
+                        layout.removeView(postButton)
+                    }
                     postTitle.text = post.getTitle()
                     postDescription.text = post.getDescription()
                     postType.text = post.getPostType()
-                    when(post.getPostType()){
-                        "Housing"->image.setImageResource(R.mipmap.circle_house_foreground)
-                        "Selling"->image.setImageResource(R.mipmap.couch_foreground)
-                        "ISO"->image.setImageResource(R.mipmap.surfboard_foreground)
-                        "Misc"->image.setImageResource(R.mipmap.rogers_tacos_foreground)
+                    when (post.getPostType()) {
+                        "Housing" -> image.setImageResource(R.mipmap.circle_house_foreground)
+                        "Selling" -> image.setImageResource(R.mipmap.couch_foreground)
+                        "ISO" -> image.setImageResource(R.mipmap.surfboard_foreground)
+                        "Misc" -> image.setImageResource(R.mipmap.rogers_tacos_foreground)
                     }
                     postsLinearLayout.addView(postLayout)
                 }

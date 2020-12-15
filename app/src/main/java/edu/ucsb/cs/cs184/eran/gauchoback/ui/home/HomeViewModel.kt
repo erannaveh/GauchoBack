@@ -18,11 +18,12 @@ import kotlin.collections.ArrayList
 
 class HomeViewModel : ViewModel() {
     private var database = Firebase.database
-    private var posts = MutableLiveData<ArrayList<Post>>()
+    private var posts = MutableLiveData<List<Post>>()
 
     fun setPosts(args: Bundle?){
         var postType = ""
         var keywords = listOf<String>()
+        var name = listOf<String>()
         var ref = database.getReference("/Posts").orderByChild("date")
         if(args != null){
             Log.d("TAG", "Args not null")
@@ -32,6 +33,9 @@ class HomeViewModel : ViewModel() {
             }
             if(!args.getString("keywords").isNullOrBlank()){
                 keywords = args.getString("keywords").toString().toLowerCase(Locale.ROOT).split(" ")
+            }
+            if(!args.getString("name").isNullOrBlank()){
+                name = args.getString("name").toString().toLowerCase(Locale.ROOT).split(" ")
             }
 
         }
@@ -44,19 +48,40 @@ class HomeViewModel : ViewModel() {
                 // ...
                 if(postsData != null) {
 
-                    if(!keywords.isNullOrEmpty()){
-                        Log.d("keywords is not empty", keywords.toString())
-                        var filteredList = ArrayList<Post>()
-                        for(post in postsData){
-                            if(post.getDescription().toLowerCase(Locale.ROOT).split(" ").intersect(keywords).isNotEmpty() || post.getTitle().split(" ").intersect(keywords).isNotEmpty() ){
-                                filteredList.add(0, post)
+                    var filteredList = ArrayList<Post>()
+                    if(!keywords.isNullOrEmpty() || !name.isNullOrEmpty()){
+                        if(!keywords.isNullOrEmpty()){
+                            Log.d("keywords is not empty", keywords.toString())
+                            for(post in postsData){
+                                if(post.getDescription().toLowerCase(Locale.ROOT).split(" ").intersect(keywords).isNotEmpty()
+                                        || post.getTitle().toLowerCase(Locale.ROOT).split(" ").intersect(keywords).isNotEmpty()){
+                                    filteredList.add(0, post)
+                                }
+                            }
+                            posts.value = filteredList
+                        }else{
+                            filteredList = postsData
+                        }
+                        if(!name.isNullOrEmpty()){
+                            Log.d("name is not empty", name.toString())
+                            var filteredList2 = ArrayList<Post>()
+                            for(post in filteredList){
+                                Log.d("name of post",post.getName().toLowerCase(Locale.ROOT).split(" ").toString())
+                                if(post.getName().toLowerCase(Locale.ROOT).split(" ").intersect(name).isNotEmpty()){
+                                    filteredList2.add(0, post)
+                                }
+                            }
+                            posts.value = filteredList2.distinct()
+                            Log.d("Num Posts", posts.value!!.size.toString())
+                            for(post in posts.value!!){
+                                Log.d("Post", post.toString())
                             }
                         }
-                        posts.value = filteredList
                     }else{
-
                         posts.value = postsData
                     }
+
+
                 }
             }
 
@@ -69,7 +94,7 @@ class HomeViewModel : ViewModel() {
         ref.addValueEventListener(listener)
     }
 
-    fun getPosts(): MutableLiveData<ArrayList<Post>> {
+    fun getPosts(): MutableLiveData<List<Post>> {
         return posts
     }
 
@@ -81,7 +106,8 @@ class HomeViewModel : ViewModel() {
         val email = ds.child("email").value.toString()
         val phone = ds.child("phone").value.toString()
         val uid = ds.child("uid").value.toString()
-        return Post(postType, title, description, price, email, phone, uid)
+        val name = ds.child("name").value.toString()
+        return Post(postType, title, description, price, email, phone, uid, name)
     }
 
     private fun createOrderedList(dataSnapshot: DataSnapshot): ArrayList<Post>? {
