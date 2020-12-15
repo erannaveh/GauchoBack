@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 class LandingPageViewModel : ViewModel() {
     fun isLoggedIn():Boolean {
         val user = FirebaseAuth.getInstance().currentUser
-        return user != null
+        val isEmailVerified = user?.isEmailVerified
+        return user != null && isEmailVerified==true
     }
 }

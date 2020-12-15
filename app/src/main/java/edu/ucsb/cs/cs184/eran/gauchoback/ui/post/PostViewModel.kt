@@ -12,24 +12,6 @@ class PostViewModel : ViewModel() {
     private var user = USER
     private var database = Firebase.database
 
-    fun getCurrentUser(){
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
-            // Name, email address, and profile photo Url
-            val name = user.displayName
-            val email = user.email
-            val photoUrl: Uri? = user.photoUrl
-
-            // Check if user's email is verified
-            val emailVerified = user.isEmailVerified
-
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getIdToken() instead.
-            val uid = user.uid
-        }
-    }
-
     class Post{
         private lateinit var postType: String
         private lateinit var title: String

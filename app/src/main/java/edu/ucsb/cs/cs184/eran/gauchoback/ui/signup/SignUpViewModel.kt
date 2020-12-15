@@ -30,7 +30,7 @@ class SignUpViewModel : ViewModel() {
         ref.setValue(email)
         ref = database.getReference("/PreferredComm/$uid")
         ref.setValue("Email")
-        ref = database.getReference("/Phone/$uid")
+        ref = database.getReference("/Phones/$uid")
         ref.setValue(phone)
     }
 }

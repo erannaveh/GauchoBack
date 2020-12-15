@@ -21,6 +21,9 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.actionCodeSettings
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity
 import edu.ucsb.cs.cs184.eran.gauchoback.R
 import java.util.regex.Pattern
@@ -109,7 +112,7 @@ class SignUpFragment : Fragment() {
             return false
         }
 
-        if(!emailText.contentEquals("@") || !emailText.contains(".")){
+        if(!emailText.contains("@") || !emailText.contains(".")){
             email.error = "Invalid email. Email must be a @ucsb.edu or @sbcc.edu address."
         }
 
@@ -197,8 +200,7 @@ class SignUpFragment : Fragment() {
             val name = root.findViewById<TextInputEditText>(R.id.signUpNameText).text.toString()
             val email = root.findViewById<TextInputEditText>(R.id.signUpEmailText).text.toString()
             val phone = root.findViewById<TextInputEditText>(R.id.signUpPhoneText).text.toString()
-            val password =
-                root.findViewById<TextInputEditText>(R.id.signUpPasswordText).text.toString()
+            val password = root.findViewById<TextInputEditText>(R.id.signUpPasswordText).text.toString()
             viewModel.createAccount(email, password).addOnCompleteListener(requireActivity(),
                 OnCompleteListener<AuthResult?> { task ->
                     if (task.isSuccessful) {
@@ -208,7 +210,30 @@ class SignUpFragment : Fragment() {
                         val user: FirebaseUser? = mAuth.currentUser
                         viewModel.pushToDB(user!!.uid, name, email, phone)
                         MainActivity.updateUserSignUp(user.uid, email, name, phone)
-                        navController.navigate(R.id.action_navigation_signup_to_navigation_home)
+                        val actionCodeSettings = actionCodeSettings {
+                            // URL you want to redirect back to. The domain (www.example.com) for this
+                            // URL must be whitelisted in the Firebase Console.
+                            url = "gauchoback-5e580.firebaseapp.com"
+                            // This must be true
+                            handleCodeInApp = true
+                            iosBundleId = "com.example.ios"
+                            setAndroidPackageName(
+                                "com.example.android",
+                                true, /* installIfNotAvailable */
+                                "12" /* minimumVersion */)
+                        }
+                        user.sendEmailVerification()
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Log.d("TAG", "Email sent.")
+                                    val builder : AlertDialog.Builder = AlertDialog.Builder(requireActivity())
+                                    builder.setTitle("Verify Email:")
+                                    builder.setMessage("A verification email has been sent to ${mAuth.currentUser!!.email}. Please follow the instructions to verify your account and log in.")
+                                    builder.setPositiveButton("OK",null)
+                                    builder.show()
+                                }
+                            }
+                        //navController.navigate(R.id.action_navigation_signup_to_navigation_home)
                         //updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
