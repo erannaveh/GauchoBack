@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
         searchBtn.setOnClickListener{navController.navigate(R.id.action_navigation_home_to_searchFragment)}
         homeViewModel.getPosts().observe(viewLifecycleOwner, Observer { it ->
             val postsLinearLayout = root.findViewById<LinearLayout>(R.id.postsLinearLayout)
-            val list = it.values.toList()
+            val list = it.toList()
             if(list.isEmpty()){
                 var textView: TextView = TextView(requireContext())
                 textView.text = "We could not find a post that matches your search"
