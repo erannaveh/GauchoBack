@@ -41,15 +41,20 @@ class ProfileFragment : Fragment() {
         profileViewModel.setMyPosts()
         root = inflater.inflate(R.layout.fragment_profile, container, false)
         navController = this.findNavController()
-        populateData()
-        initiateDropdown()
         root.findViewById<Button>(R.id.saveButton).setOnClickListener{pushToDB()}
         root.findViewById<Button>(R.id.logOut).setOnClickListener{logOut()}
+
+        populateData()
+        initiateDropdown()
+
         profileViewModel.getMyPosts().observe(viewLifecycleOwner, Observer { it ->
+
             val layout = root.findViewById<LinearLayout>(R.id.myPostsLayout)
             val posts = it.values.toList()
             val keys = it.keys.toList()
+
             Log.d("Posts", posts.toString())
+            Log.d("Keys", keys.toString())
             for (i in posts.indices) {
                 val postLayout = inflater.inflate(R.layout.my_post_layout, layout, false)
                 val postTitle = postLayout.findViewById<TextView>(R.id.myPostTitle)
@@ -61,35 +66,19 @@ class ProfileFragment : Fragment() {
                     confirmDeleteDialog.setTitle("Confirm")
                             .setMessage("Are you sure you want to delete the post?")
                             .setPositiveButton("YES") { confirmDeleteDialog, whichButton ->
-                                Log.d(TAG, "pressing yes")
                                 profileViewModel.deletePost(keys[i], it, layout, this)
                             }
                             .setNegativeButton("NO") { confirmDeleteDialog, whichButton ->
-                                Log.d(TAG, "pressing no")
                                 confirmDeleteDialog.dismiss()
                             }
                     confirmDeleteDialog.show()
-
-                    //refreshFragment()
-
-
                 }
                 layout.addView(postLayout)
             }
         })
-
         return root
     }
-    /*
-    private fun refreshFragment() {
-        Log.d(ProfileFragment.TAG, "refreshingFragment")
-        val newFragment = ProfileFragment()
-        requireActivity().supportFragmentManager
-                .beginTransaction()
-                .detach(this)
-                .attach(this)
-                .commit()
-    }*/
+
 
     private fun populateData(){
         val email: String? = profileViewModel.getEmail()

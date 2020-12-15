@@ -94,11 +94,11 @@ class ProfileViewModel : ViewModel() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Get Post object and use the values to update the UI
                 dataSnapshot.ref.removeValue()
-                /*if(view.parent != null){
+                if(view.parent != null){
                     val parentView = view.parent as ViewGroup // Post itself
-                    layout.removeView(parentView)
-                    parentView.removeAllViews()
-                }*/
+                    layout.removeView(parentView) // layout = all the Posts
+                    layout.removeAllViews()
+                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
