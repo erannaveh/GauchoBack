@@ -194,5 +194,4 @@ class ProfileFragment : Fragment() {
         navController.navigate(R.id.action_navigation_profile_to_navigation_landing_page)
     }
 
-
 }
