@@ -72,7 +72,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/signUpPassword"
+        android:id="@+id/signUpPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_margin24"
@@ -84,13 +84,36 @@
         tools:layout_editor_absoluteX="188dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signUpPhoneText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:singleLine="true"
+            android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/signUpPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginTop="@dimen/_margin8"
+        android:layout_marginEnd="@dimen/_margin24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpPhone"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="188dp">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signUpPasswordText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:singleLine="true"
-            android:inputType="textWebPassword" />
+            android:inputType="textWebPassword"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <Button
         android:id="@+id/signUpButton"

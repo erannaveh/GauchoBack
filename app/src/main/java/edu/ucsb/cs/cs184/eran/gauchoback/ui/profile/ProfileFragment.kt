@@ -84,14 +84,15 @@ class ProfileFragment : Fragment() {
 
     private fun populateData(){
         val email: String? = profileViewModel.getEmail()
-        if(email != null){
-            val emailText = root.findViewById<TextInputEditText>(R.id.emailText)
-            emailText.setText(email)
-            emailText.keyListener = null
-            emailText.isEnabled = false
-        }
+        val emailText = root.findViewById<TextInputEditText>(R.id.emailText)
+        val phoneText = root.findViewById<TextInputEditText>(R.id.phoneText)
+        emailText.setText(email)
+        emailText.keyListener = null
+        emailText.isEnabled = false
+        phoneText.keyListener = null
+        phoneText.isEnabled = false
         profileViewModel.setName(root.findViewById(R.id.nameText))
-        profileViewModel.setPhone(root.findViewById(R.id.phoneText))
+        profileViewModel.setPhone(phoneText)
         profileViewModel.setPreferredComm(root.findViewById(R.id.preferredCommDropdown))
     }
 
@@ -185,7 +186,7 @@ class ProfileFragment : Fragment() {
             profileViewModel.pushToDB(name, email, phone, preferredComm)
         }
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
     private fun logOut(){

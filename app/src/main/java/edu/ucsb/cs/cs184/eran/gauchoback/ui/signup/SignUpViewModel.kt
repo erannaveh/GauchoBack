@@ -20,14 +20,17 @@ class SignUpViewModel : ViewModel() {
     }
 
 
-    fun pushToDB(uid:String, name: String, email: String){
+    fun pushToDB(uid:String, name: String, email: String, phone: String){
         MainActivity.USER.setName(name)
         MainActivity.USER.setPreferredComm("Email")
+        MainActivity.USER.setPhone(phone)
         var ref = database.getReference("/Names/$uid")
         ref.setValue(name)
         ref = database.getReference("/Emails/$uid")
         ref.setValue(email)
         ref = database.getReference("/PreferredComm/$uid")
         ref.setValue("Email")
+        ref = database.getReference("/Phone/$uid")
+        ref.setValue(phone)
     }
 }

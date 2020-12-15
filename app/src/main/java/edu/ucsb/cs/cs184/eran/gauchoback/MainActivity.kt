@@ -96,11 +96,12 @@ class MainActivity : AppCompatActivity() {
             USER.setUid(uid)
             initializeUser(mainActivity)
         }
-        fun updateUserSignUp(uid: String, email: String, name: String){
+        fun updateUserSignUp(uid: String, email: String, name: String, phone: String){
             USER.setUid(uid)
             USER.setEmail(email)
             USER.setName(name)
             USER.setPreferredComm("Email")
+            USER.setPhone(phone)
         }
     }
 
