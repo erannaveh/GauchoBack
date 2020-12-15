@@ -1,16 +1,17 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.profile
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -18,7 +19,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import edu.ucsb.cs.cs184.eran.gauchoback.R
 import java.util.regex.Pattern
-import edu.ucsb.cs.cs184.eran.gauchoback.ui.home.HomeFragment
 
 
 class ProfileFragment : Fragment() {
@@ -33,9 +33,9 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         Log.d(TAG, "on create view")
         profileViewModel =
@@ -99,9 +99,9 @@ class ProfileFragment : Fragment() {
         val OPTIONS = arrayOf("Email", "Phone")
 
         val adapter = ArrayAdapter(
-            requireContext(),
-            R.layout.dropdown_menu_popup_item,
-            OPTIONS
+                requireContext(),
+                R.layout.dropdown_menu_popup_item,
+                OPTIONS
         )
 
         val editTextFilledExposedDropdown: AutoCompleteTextView = root.findViewById(R.id.preferredCommDropdown)
@@ -184,10 +184,14 @@ class ProfileFragment : Fragment() {
                 root.findViewById<AutoCompleteTextView>(R.id.preferredCommDropdown).text.toString()
             profileViewModel.pushToDB(name, email, phone, preferredComm)
         }
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
     }
 
     private fun logOut(){
         profileViewModel.logOut()
         navController.navigate(R.id.action_navigation_profile_to_navigation_landing_page)
     }
+
+
 }
