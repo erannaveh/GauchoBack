@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity
 import edu.ucsb.cs.cs184.eran.gauchoback.R
 
@@ -110,6 +111,7 @@ class LogInFragment : Fragment() {
         if(!isValidPassword()){
             error = true
         }
+
         return !error
     }
 
@@ -123,13 +125,24 @@ class LogInFragment : Fragment() {
             Log.d("email", email)
             viewModel.signIn(email, password).addOnCompleteListener(requireActivity(),
                 OnCompleteListener<AuthResult?> { task ->
+                    val user = mAuth.currentUser
+
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        navController.navigate(R.id.action_navigation_login_to_navigation_home)
-                        Log.d("TAG", "signInWithEmail:success")
-                        val user = mAuth.currentUser
-                        MainActivity.updateUser(activity as MainActivity, user!!.uid)
-                        //updateUI(user)
+                            if(user!!.isEmailVerified){
+                                navController.navigate(R.id.action_navigation_login_to_navigation_home)
+                                Log.d("TAG", "signInWithEmail:success")
+
+                                MainActivity.updateUser(activity as MainActivity, user.uid)
+                                //updateUI(user)
+                            }else{
+                                val builder : AlertDialog.Builder = AlertDialog.Builder(requireActivity())
+                                builder.setTitle("LOGIN ERROR:")
+                                builder.setMessage("This account has not been verified. Check ${user.email} for verification instructions.")
+                                builder.setPositiveButton("OK",null)
+                                builder.show()
+                            }
+
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("TAG", "signInWithEmail:failure", task.exception)
