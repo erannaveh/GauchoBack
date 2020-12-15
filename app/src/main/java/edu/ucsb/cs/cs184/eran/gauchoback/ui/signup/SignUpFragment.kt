@@ -227,7 +227,7 @@ class SignUpFragment : Fragment() {
                                 if (task.isSuccessful) {
                                     Log.d("TAG", "Email sent.")
                                     val builder : AlertDialog.Builder = AlertDialog.Builder(requireActivity())
-                                    builder.setTitle("Verify Email:")
+                                    builder.setTitle("Verify Account")
                                     builder.setMessage("A verification email has been sent to ${mAuth.currentUser!!.email}. Please follow the instructions to verify your account and log in.")
                                     builder.setPositiveButton("OK",null)
                                     builder.show()
@@ -240,7 +240,7 @@ class SignUpFragment : Fragment() {
                         Log.w("TAG", "createUserWithEmail:failure", task.exception)
                         //updateUI(null)
                         val builder : AlertDialog.Builder = AlertDialog.Builder(requireActivity())
-                        builder.setTitle("SIGN UP ERROR:")
+                        builder.setTitle("SIGN UP ERROR")
                         builder.setMessage("An account exists with these credentials. Try again with a different email.")
                         builder.setPositiveButton("OK",null)
                         builder.show()

@@ -137,7 +137,7 @@ class LogInFragment : Fragment() {
                                 //updateUI(user)
                             }else{
                                 val builder : AlertDialog.Builder = AlertDialog.Builder(requireActivity())
-                                builder.setTitle("LOGIN ERROR:")
+                                builder.setTitle("Verify Account")
                                 builder.setMessage("This account has not been verified. Check ${user.email} for verification instructions.")
                                 builder.setPositiveButton("OK",null)
                                 builder.show()
@@ -148,7 +148,7 @@ class LogInFragment : Fragment() {
                         Log.w("TAG", "signInWithEmail:failure", task.exception)
 
                         val builder : AlertDialog.Builder = AlertDialog.Builder(requireActivity())
-                        builder.setTitle("LOGIN ERROR:")
+                        builder.setTitle("LOGIN ERROR")
                         builder.setMessage("The email and password you entered did not match our records. Please double-check and try again.")
                         builder.setPositiveButton("OK",null)
                         builder.show()
