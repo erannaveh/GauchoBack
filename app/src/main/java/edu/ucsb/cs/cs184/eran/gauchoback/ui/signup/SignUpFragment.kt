@@ -93,6 +93,8 @@ class SignUpFragment : Fragment() {
         }else if(!m){
             name.error = "Enter valid name (no special characters or numbers)"
             return false
+        }else{
+            name.error = null
         }
 
         return true
