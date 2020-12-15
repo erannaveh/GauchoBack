@@ -87,14 +87,96 @@ class PostFragment : Fragment() {
         })
     }
 
+    private fun isValidTitle(): Boolean{
+        val title = root.findViewById<TextInputEditText>(R.id.new_post_title_text)
+        val titleText = title.text.toString()
+
+        if(titleText.isEmpty()){
+            title.error = "Title can't be empty."
+            return false
+        }else{
+            title.error = null
+        }
+
+        return true
+
+    }
+
+    private fun isValidDescr(): Boolean{
+        val description = root.findViewById<TextInputEditText>(R.id.new_post_description_text)
+        val descriptionText = description.text.toString()
+
+        if(descriptionText.isEmpty()){
+            description.error = "Description can't be empty."
+            return false
+        }else{
+            description.error = null
+        }
+        return true
+    }
+
+    private fun isValidType(): Boolean{
+        val postType = root.findViewById<AutoCompleteTextView>(R.id.post_dropdown)
+        val postTypeText = postType.text.toString()
+
+        if(postTypeText.isEmpty()){
+            postType.error = "Must select post type."
+            return false
+        }else{
+            postType.error = null
+        }
+        return true
+
+    }
+    private fun isValidPrice(): Boolean {
+        val postType = root.findViewById<AutoCompleteTextView>(R.id.post_dropdown).text.toString()
+        val price = root.findViewById<TextInputEditText>(R.id.new_post_price_text)
+        val priceText = price.text.toString()
+
+        if((postType == "Selling") && priceText.isEmpty()){
+            price.error = "Price required for Selling"
+            return false
+        }else{
+            price.error = null
+        }
+
+        return true
+
+    }
+
+    private fun validate(): Boolean{
+
+        var error = false
+
+        if(!isValidType()) {
+            error = true
+        }
+        if(!isValidTitle()) {
+            error = true
+        }
+        if(!isValidDescr()) {
+            error = true
+        }
+        if(!isValidPrice()){
+            error = true
+        }
+        return !error
+    }
+
     private fun pushPostToDB(){
         // TODO: add validation
-        val postType = root.findViewById<AutoCompleteTextView>(R.id.post_dropdown).text.toString()
-        val title = root.findViewById<TextInputEditText>(R.id.new_post_title_text).text.toString()
-        val description = root.findViewById<TextInputEditText>(R.id.new_post_description_text).text.toString()
-        val price = root.findViewById<TextInputEditText>(R.id.new_post_price_text).text.toString()
-        postViewModel.pushPostToDB(postType, title, description, price)
-        navController.navigate(R.id.action_navigation_post_to_navigation_home)
+        if(validate()) {
+            val postType =
+                root.findViewById<AutoCompleteTextView>(R.id.post_dropdown).text.toString()
+            val title =
+                root.findViewById<TextInputEditText>(R.id.new_post_title_text).text.toString()
+            val description =
+                root.findViewById<TextInputEditText>(R.id.new_post_description_text).text.toString()
+            val price =
+                root.findViewById<TextInputEditText>(R.id.new_post_price_text).text.toString()
+            postViewModel.pushPostToDB(postType, title, description, price)
+            navController.navigate(R.id.action_navigation_post_to_navigation_home)
+        }
     }
 
     fun selectImage() {

@@ -1,17 +1,22 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.landingpage
 
-import android.app.ActionBar
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import edu.ucsb.cs.cs184.eran.gauchoback.R
+
 
 class LandingPageFragment : Fragment() {
 
@@ -33,6 +38,27 @@ class LandingPageFragment : Fragment() {
         signUpBtn.setOnClickListener{onClickSignUp()}
         val navBar: BottomNavigationView = requireActivity().findViewById(R.id.nav_view)
         navBar.visibility = View.GONE
+
+        val logo = root.findViewById<TextView>(R.id.gauchoback)
+        val word: Spannable = SpannableString("Gaucho")
+
+        word.setSpan(
+            ForegroundColorSpan(Color.rgb(254,188,17)),
+            0,
+            word.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        logo.text = word
+        val wordTwo: Spannable = SpannableString("Back")
+
+        wordTwo.setSpan(
+            ForegroundColorSpan(Color.rgb(0,54,96)),
+            0,
+            wordTwo.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        logo.append(wordTwo)
 
 
         return root

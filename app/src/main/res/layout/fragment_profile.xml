@@ -7,10 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileFragment">
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginTop="@dimen/_margin8"
+        android:layout_marginEnd="@dimen/_margin24"
         android:hint="@string/string_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,15 +26,17 @@
             android:id="@+id/nameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:maxLines="1" />
+            android:inputType="textPersonName|textCapSentences"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginTop="@dimen/_margin8"
+        android:layout_marginEnd="@dimen/_margin24"
         android:hint="@string/email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,14 +49,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none|textEmailAddress"
-            android:maxLines="1" />
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginTop="@dimen/_margin8"
+        android:layout_marginEnd="@dimen/_margin24"
         android:hint="@string/phone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,15 +71,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
-            android:maxLines="1" />
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/preferredComm"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/_margin24"
+        android:layout_marginTop="@dimen/_margin8"
+        android:layout_marginEnd="@dimen/_margin24"
         android:hint="@string/preferred_communication"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
