@@ -47,8 +47,7 @@ class SearchFragment : Fragment() {
     private fun createBundle(): Bundle {
         val postType = root.findViewById<AutoCompleteTextView>(R.id.searchPostTypeDropdown).text.toString()
         val keywords = root.findViewById<TextInputEditText>(R.id.searchView).text.toString()
-        val name = root.findViewById<TextInputEditText>(R.id.searchName).text.toString()
-        return bundleOf("postType" to postType, "keywords" to keywords, "name" to name)
+        return bundleOf("postType" to postType, "keywords" to keywords)
 
     }
 
