@@ -38,6 +38,7 @@ class PostViewModel : ViewModel() {
         private lateinit var email: String
         private lateinit var phone: String
         private lateinit var uid: String
+        private var date: Long = System.currentTimeMillis()
 
         constructor()
 
@@ -77,6 +78,10 @@ class PostViewModel : ViewModel() {
 
         fun getUid(): String {
             return uid
+        }
+
+        fun getDate(): Long {
+            return date
         }
 
     }

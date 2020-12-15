@@ -28,4 +28,6 @@
     <string name="save">Save</string>
     <string name="log_out">Log Out</string>
     <string name="contact">CONTACT</string>
+    <string name="keywords">Keywords</string>
+    <string name="post_type">Post Type</string>
 </resources>

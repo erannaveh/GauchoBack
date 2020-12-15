@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -15,6 +18,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import edu.ucsb.cs.cs184.eran.gauchoback.ui.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
@@ -81,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object{
-        var USER = User()
+        val USER = User()
         private fun initializeUser(mainActivity: MainActivity){
             mainActivity.setName()
             mainActivity.setEmail()
@@ -109,7 +113,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_landing_page, R.id.navigation_signup, R.id.navigation_login, R.id.navigation_home, R.id.navigation_post, R.id.navigation_profile))
+                R.id.navigation_landing_page, R.id.navigation_home, R.id.navigation_post, R.id.navigation_profile))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         mAuth = FirebaseAuth.getInstance()
@@ -208,5 +212,13 @@ class MainActivity : AppCompatActivity() {
         }
         ref.addValueEventListener(listener)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navHostFragment.navController.popBackStack()
+        return true
+    }
+
+
 
 }
