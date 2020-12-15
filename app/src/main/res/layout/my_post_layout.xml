@@ -22,6 +22,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/myPostTitle"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_delete" />
+        app:srcCompat="@drawable/ic_baseline_delete_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
