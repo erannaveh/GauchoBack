@@ -65,6 +65,7 @@ class HomeFragment : Fragment() {
                     val postDescription = postLayout.findViewById<TextView>(R.id.postDescription)
                     val postButton = postLayout.findViewById<Button>(R.id.postContactSeller)
                     val postType = postLayout.findViewById<TextView>(R.id.postType)
+                    val postPrice = postLayout.findViewById<TextView>(R.id.postPrice)
                     val image = postLayout.findViewById<ImageView>(R.id.postImage)
                     homeViewModel.getPreferredComm(post.getUid(), postButton, ::onClickEmail, ::onClickPhone, post.getEmail(), post.getPhone(), post.getTitle())
                     if(post.getUid() == user.getUid()){
@@ -74,6 +75,12 @@ class HomeFragment : Fragment() {
                     postTitle.text = post.getTitle()
                     postDescription.text = post.getDescription()
                     postType.text = post.getPostType()
+                    if(post.getPrice().isEmpty()){
+                        postPrice.text = post.getPrice()
+                    }else{
+                        postPrice.text = "$"+post.getPrice()
+                    }
+
                     when(post.getPostType()){
                         "Housing"->image.setImageResource(R.mipmap.circle_house_foreground)
                         "Selling"->image.setImageResource(R.mipmap.couch_foreground)
