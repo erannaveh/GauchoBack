@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity.Companion.USER
 import edu.ucsb.cs.cs184.eran.gauchoback.R
 
 
@@ -26,6 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var navController: NavController
     private lateinit var root: View
+    private var user = USER
     private val Fragment.packageManager get() = activity?.packageManager
 
     companion object {
@@ -65,6 +67,10 @@ class HomeFragment : Fragment() {
                     val postType = postLayout.findViewById<TextView>(R.id.postType)
                     val image = postLayout.findViewById<ImageView>(R.id.postImage)
                     homeViewModel.getPreferredComm(post.getUid(), postButton, ::onClickEmail, ::onClickPhone, post.getEmail(), post.getPhone(), post.getTitle())
+                    if(post.getUid() == user.getUid()){
+                        val layout = postLayout as ViewGroup
+                        layout.removeView(postButton)
+                    }
                     postTitle.text = post.getTitle()
                     postDescription.text = post.getDescription()
                     postType.text = post.getPostType()
