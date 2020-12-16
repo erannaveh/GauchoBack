@@ -1,6 +1,5 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.login
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
