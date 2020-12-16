@@ -1,11 +1,8 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.post
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.util.*
 import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity.Companion.USER
 
 class PostViewModel : ViewModel() {

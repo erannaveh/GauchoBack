@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs184.eran.gauchoback.ui.signup
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -21,9 +22,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.actionCodeSettings
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity
 import edu.ucsb.cs.cs184.eran.gauchoback.R
 import java.util.regex.Pattern
@@ -45,6 +43,7 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         root = inflater.inflate(R.layout.fragment_sign_up, container, false)
+        navController = this.findNavController()
         val btn = root.findViewById<Button>(R.id.signUpButton)
         btn.setOnClickListener{createAccount()}
 
@@ -77,7 +76,6 @@ class SignUpFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
         mAuth = FirebaseAuth.getInstance()
         viewModel.setAuth(mAuth)
-        navController = this.findNavController()
 
     }
 
@@ -210,18 +208,6 @@ class SignUpFragment : Fragment() {
                         val user: FirebaseUser? = mAuth.currentUser
                         viewModel.pushToDB(user!!.uid, name, email, phone)
                         MainActivity.updateUserSignUp(user.uid, email, name, phone)
-                        val actionCodeSettings = actionCodeSettings {
-                            // URL you want to redirect back to. The domain (www.example.com) for this
-                            // URL must be whitelisted in the Firebase Console.
-                            url = "gauchoback-5e580.firebaseapp.com"
-                            // This must be true
-                            handleCodeInApp = true
-                            iosBundleId = "com.example.ios"
-                            setAndroidPackageName(
-                                "com.example.android",
-                                true, /* installIfNotAvailable */
-                                "12" /* minimumVersion */)
-                        }
                         user.sendEmailVerification()
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
@@ -229,12 +215,12 @@ class SignUpFragment : Fragment() {
                                     val builder : AlertDialog.Builder = AlertDialog.Builder(requireActivity())
                                     builder.setTitle("Verify Account")
                                     builder.setMessage("A verification email has been sent to ${mAuth.currentUser!!.email}. Please follow the instructions to verify your account and log in.")
-                                    builder.setPositiveButton("OK",null)
+                                    builder.setPositiveButton("OK",DialogInterface.OnClickListener { _, _ ->
+                                        navController.navigate(R.id.action_navigation_signup_to_navigation_login)
+                                    })
                                     builder.show()
                                 }
                             }
-                        //navController.navigate(R.id.action_navigation_signup_to_navigation_home)
-                        //updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("TAG", "createUserWithEmail:failure", task.exception)

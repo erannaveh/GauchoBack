@@ -20,7 +20,6 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import edu.ucsb.cs.cs184.eran.gauchoback.MainActivity
 import edu.ucsb.cs.cs184.eran.gauchoback.R
 

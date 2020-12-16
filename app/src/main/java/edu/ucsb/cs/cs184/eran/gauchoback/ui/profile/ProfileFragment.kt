@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -68,7 +67,7 @@ class ProfileFragment : Fragment() {
                     confirmDeleteDialog.setTitle("Confirm")
                             .setMessage("Are you sure you want to delete the post?")
                             .setPositiveButton("YES") { confirmDeleteDialog, whichButton ->
-                                profileViewModel.deletePost(keys[i], it, layout, this)
+                                profileViewModel.deletePost(keys[i], it, layout)
                             }
                             .setNegativeButton("NO") { confirmDeleteDialog, whichButton ->
                                 confirmDeleteDialog.dismiss()

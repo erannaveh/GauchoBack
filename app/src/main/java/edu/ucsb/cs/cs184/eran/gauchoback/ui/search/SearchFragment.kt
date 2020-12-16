@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
-import android.widget.CheckBox
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
