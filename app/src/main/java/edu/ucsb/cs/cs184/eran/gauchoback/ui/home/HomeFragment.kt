@@ -75,8 +75,10 @@ class HomeFragment : Fragment() {
                     postTitle.text = post.getTitle()
                     postDescription.text = post.getDescription()
                     postType.text = post.getPostType()
+
                     if(post.getPrice().isEmpty()){
-                        postPrice.text = post.getPrice()
+                        val layout = postLayout as ViewGroup
+                        layout.removeView(postPrice)
                     }else{
                         postPrice.text = "$"+post.getPrice()
                     }
