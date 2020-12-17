@@ -134,7 +134,7 @@
     <ScrollView
         android:id="@+id/myPostsScroll"
         android:layout_width="399dp"
-        android:layout_height="150dp"
+        android:layout_height="262dp"
         app:layout_constraintBottom_toTopOf="@+id/logOut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +144,7 @@
             android:id="@+id/myPostsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"></LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
